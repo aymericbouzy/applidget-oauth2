@@ -25,8 +25,6 @@ module Applidget
     #     # your code ...
     #   end
 
-    before_filter :check_csrf, :only => [:callback]
-
     def request_uri(options)
       @options = options
       client.auth_code.authorize_url({:redirect_uri => @options[:callback_url]}.merge(request_params))
