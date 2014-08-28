@@ -11,7 +11,9 @@ module Applidget
     #       model: "guest",
     #       api: "/api/v1/me.json",
     #       request_params: { hd: params[:hd], auth: params[:auth], scope: "public" },
-    #       callback_url: generic_url_from callback_guests_auth_applidget_accounts_path
+    #       callback_url: generic_url_from callback_guests_auth_applidget_accounts_path,
+    #       client_id: "785439208457639203847539208374",
+    #       client_secret: "7468539205733452975829047568892"
     #     }
     #   end
     #
@@ -30,7 +32,7 @@ module Applidget
       client.auth_code.authorize_url({:redirect_uri => @options[:callback_url]}.merge(request_params))
     end
 
-    def access_token(options, params)
+    def api_response(options, params)
       @options = options
       @params = params
       if check_csrf
@@ -42,7 +44,7 @@ module Applidget
     private
 
     def client
-      @client ||= ::OAuth2::Client.new(@options[:client_id], @options[:client_secret], { :site => @options[:provider_host] })
+      @client ||= ::OAuth2::Client.new(@options[:client_id], @options[:client_secret], { :site => "https://accounts.applidget.com" })
     end
 
     def build_access_token
